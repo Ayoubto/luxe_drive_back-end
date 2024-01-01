@@ -18,28 +18,51 @@ public class userservicelmlp implements userservice {
 
     @Autowired
     private PasswordEncoder passwordEncoder; // Injection du PasswordEncoder
-
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
     public User save(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // Utilisation de passwordEncoder
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("Invalid username or password.");
+            throw new UsernameNotFoundException("Invalid email or password.");
         }
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
+                user.getEmail(),
                 user.getPassword(),
-                // Add roles or authorities if needed
                 Collections.emptyList()
         );
     }
 }
+//    @Override
+//    public User findByUsername(String username) {
+//        return userRepository.findByUsername(username);
+//    }
+//
+//    @Override
+//    public User save(User user) {
+//        user.setPassword(passwordEncoder.encode(user.getPassword())); // Utilisation de passwordEncoder
+//        return userRepository.save(user);
+//    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = userRepository.findByUsername(username);
+//        if (user == null) {
+//            throw new UsernameNotFoundException("Invalid username or password.");
+//        }
+//        return new org.springframework.security.core.userdetails.User(
+//                user.getUsername(),
+//                user.getPassword(),
+//                // Add roles or authorities if needed
+//                Collections.emptyList()
+//        );
+//    }
+//}

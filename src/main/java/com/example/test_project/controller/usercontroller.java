@@ -21,7 +21,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.authentication.AuthenticationManager;
 
+class JwtResponse {
+    private final String jwt;
 
+    public JwtResponse(String jwt) {
+        this.jwt = jwt;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
+}
 @RestController
 @RequestMapping("/api/auth")
 public class usercontroller {
@@ -33,44 +43,84 @@ public class usercontroller {
 
     @Autowired
     private JwtUtil jwtUtil;
-
     @PostMapping("/signup")
-    public ResponseEntity<String> signUp(@RequestBody User user) {
-        // Vérifie si le nom d'utilisateur est déjà pris
-        if (userService.findByUsername(user.getUsername()) != null) {
-            return ResponseEntity.badRequest().body("Username is already taken");
+    public ResponseEntity<JwtResponse> signUp(@RequestBody User user) {
+        if (userService.findByEmail(user.getEmail()) != null) {
+            return ResponseEntity.badRequest().body(new JwtResponse("Email is already taken"));
         }
-
-        // Enregistre l'utilisateur
         userService.save(user);
-
-        // Génère le token JWT après l'inscription réussie
-        final UserDetails userDetails = userService.loadUserByUsername(user.getUsername());
+        final UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
         final String jwt = jwtUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(jwt); // Renvoie le token JWT
+        JwtResponse response = new JwtResponse(jwt);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> signIn(@RequestBody User user) {
+    public ResponseEntity<JwtResponse> signIn(@RequestBody User user) {
         try {
-            // Tente l'authentification
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
             );
         } catch (BadCredentialsException e) {
-            // En cas d'informations d'identification invalides
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+            String errorMessage = "Invalid email or password";
+            return ResponseEntity.badRequest().body(new JwtResponse("Invalid email or password"));
         }
-
-        // Si l'authentification est réussie, génère le token JWT
-        final UserDetails userDetails = userService.loadUserByUsername(user.getUsername());
+        final UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
         final String jwt = jwtUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(jwt); // Renvoie le token JWT
+        JwtResponse response = new JwtResponse(jwt);
+        return ResponseEntity.ok(response);
     }
 }
 
+class ErrorResponse {
+    private int status;
+    private String message;
+
+    public ErrorResponse(int status, String message) {
+        this.status = status;
+        this.message = message;
+    }
+
+    // Getters and setters for status and message
+    // ...
+}
+//    @PostMapping("/signup")
+//    public ResponseEntity<String> signUp(@RequestBody User user) {
+//        // Vérifie si le nom d'utilisateur est déjà pris
+//        if (userService.findByUsername(user.getUsername()) != null) {
+//            return ResponseEntity.badRequest().body("Username is already taken");
+//        }
+//
+//        // Enregistre l'utilisateur
+//        userService.save(user);
+//
+//        // Génère le token JWT après l'inscription réussie
+//        final UserDetails userDetails = userService.loadUserByUsername(user.getUsername());
+//        final String jwt = jwtUtil.generateToken(userDetails);
+//
+//        return ResponseEntity.ok(jwt); // Renvoie le token JWT
+//    }
+//
+//    @PostMapping("/signin")
+//    public ResponseEntity<String> signIn(@RequestBody User user) {
+//        try {
+//            // Tente l'authentification
+//            authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+//            );
+//        } catch (BadCredentialsException e) {
+//            // En cas d'informations d'identification invalides
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+//        }
+//
+//        // Si l'authentification est réussie, génère le token JWT
+//        final UserDetails userDetails = userService.loadUserByUsername(user.getUsername());
+//        final String jwt = jwtUtil.generateToken(userDetails);
+//
+//        return ResponseEntity.ok(jwt); // Renvoie le token JWT
+//    }
+//}
+//
 
 
 

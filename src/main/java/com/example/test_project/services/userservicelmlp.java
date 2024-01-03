@@ -1,14 +1,18 @@
 package com.example.test_project.services;
 
+import com.example.test_project.entities.CustomUserDetails;
 import com.example.test_project.entities.User;
 import com.example.test_project.reposiroty.userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.math.BigInteger;
+import java.util.*;
 
 @Service
 public class userservicelmlp implements userservice {
@@ -35,12 +39,66 @@ public class userservicelmlp implements userservice {
         if (user == null) {
             throw new UsernameNotFoundException("Invalid email or password.");
         }
-        return new org.springframework.security.core.userdetails.User(
+
+        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
+
+        // Création de CustomUserDetails avec le prénom et le nom
+        UserDetails userDetails = new CustomUserDetails(
                 user.getEmail(),
                 user.getPassword(),
-                Collections.emptyList()
+                authorities,
+                user.getNom(),  // Ajout du nom de l'utilisateur
+                user.getPrenom(),  // Ajout du prénom de l'utilisateur
+                user.getImage()
         );
+
+        return userDetails;
     }
+
+    @Autowired
+    public userservicelmlp(userrepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public List<User> getAllUsers() {
+        List<User> users = this.userRepository.findAll();
+        return users;
+
+    }
+
+
+
+
+
+    public void saveUser(User user) {
+        this.userRepository.save(user);
+
+    }
+
+
+    public void deleteUser(BigInteger id) {
+        this.userRepository.deleteById(id);
+
+    }
+
+
+    @Override
+    public Optional<User> getUserById(BigInteger id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
+//    @Override
+//    public void updateUser(BigInteger id) {
+//
+//    }
+
+
+
 }
 //    @Override
 //    public User findByUsername(String username) {

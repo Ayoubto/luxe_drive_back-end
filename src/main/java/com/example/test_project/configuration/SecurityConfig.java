@@ -35,9 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/signup", "/api/auth/signin").permitAll() // Endpoints to register/signup and signin
+                .antMatchers("/api/auth/signup", "/api/auth/signin","/addagence","/updateagence/{id}","/deleteagence/{id}","/getagence/{id}","/getallagences","/addvoiture","/updatevoiture/{id}","/deletevoiture/{id}","/getallvoitures","/getvoiture/{id}","/api/auth/getallusers","/api/auth/getuser/{id}","/api/auth/deleteuser/{id}","/api/auth/updateuser/{id}").permitAll() // Endpoints to register/signup and signin
                 .anyRequest().authenticated()
                 .and().httpBasic();
+
     }
 
     @Override

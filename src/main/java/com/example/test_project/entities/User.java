@@ -3,25 +3,31 @@ package com.example.test_project.entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.bson.types.ObjectId;
+
+import java.math.BigInteger;
+
 @Document(collection = "users")
 public class User {
     @Id
-    private ObjectId id;
+    private BigInteger id;
     private String nom;
     private String prenom;
     private String address;
-    private int telephone;
+    private String telephone;
     private String email;
     private String password;
     private String confirmePassword; // Renommé Confirme_password en confirmePassword
+    private String role;
+    private  String image="image path";
     // Getters and setters
 
-    public ObjectId getId() {
+
+    public BigInteger getId() {
         return id;
     }
 
 
-    public void setId(ObjectId id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
@@ -49,11 +55,11 @@ public class User {
         this.address = address;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
@@ -79,5 +85,20 @@ public class User {
 
     public void setConfirmePassword(String confirmePassword) {
         this.confirmePassword = confirmePassword;
+    }
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

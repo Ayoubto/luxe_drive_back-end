@@ -3,19 +3,16 @@ package com.example.test_project.controller;
 
 import com.example.test_project.entities.CustomUserDetails;
 import com.example.test_project.entities.User;
-//import com.example.test_project.jwtconfigtocken.JwtUtil;
 import com.example.test_project.jwtconfigtocken.JwtUtil;
 import com.example.test_project.services.userservice;
-import org.springframework.security.core.GrantedAuthority;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import com.example.test_project.reposiroty.userrepository;
 
 import java.math.BigInteger;
 import java.util.List;

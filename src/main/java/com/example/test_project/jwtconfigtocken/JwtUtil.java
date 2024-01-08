@@ -1,15 +1,14 @@
 package com.example.test_project.jwtconfigtocken;
 
 
-import org.springframework.security.core.GrantedAuthority;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtUtil {
@@ -29,9 +28,11 @@ public class JwtUtil {
 //
 //        return createToken(claims, userDetails.getUsername());
 //    }
+
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
 
+        claims.put("role", userDetails.getAuthorities().toString());
         return createToken(claims, userDetails.getUsername());
     }
 

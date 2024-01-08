@@ -20,14 +20,14 @@ import java.util.Optional;
 
 class JwtResponse {
     private final String jwt;
-    private final Long id;
+    private final String id;
     private final String email;
     private final String role;
     private String prenom; // Ajout du champ prenom
     private String nom; // Ajout du champ nom
     private String image;
 
-    public JwtResponse(String jwt, Long id, String email, String role) {
+    public JwtResponse(String jwt, String id, String email, String role) {
         this.jwt = jwt;
         this.id = id;
         this.email = email;
@@ -46,7 +46,7 @@ class JwtResponse {
         return jwt;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -124,7 +124,8 @@ public class usercontroller {
             String jwt = jwtUtil.generateToken(userDetails);
             String role = getUserRole(userDetails);
             String username = userDetails.getUsername();
-            Long userId = getUserId(userDetails);
+            String userId = ((CustomUserDetails) userDetails).getId();
+
             String prenom = ((CustomUserDetails) userDetails).getPrenom();
             String nom = ((CustomUserDetails) userDetails).getNom();
             String image = ((CustomUserDetails) userDetails).getImage(); // Récupération de l'image
@@ -155,21 +156,6 @@ public class usercontroller {
         // Vous devrez implémenter cette logique en fonction de la manière dont vous gérez les ID des utilisateurs
         return null;
 
-//    @PostMapping("/signin")
-//    public ResponseEntity<JwtResponse> signIn(@RequestBody User user) {
-//        try {
-//            authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
-//            );
-//        } catch (BadCredentialsException e) {
-//            String errorMessage = "Invalid email or password";
-//            return ResponseEntity.badRequest().body(new JwtResponse("Invalid email or password"));
-//        }
-//        final UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
-//        final String jwt = jwtUtil.generateToken(userDetails);
-//        JwtResponse response = new JwtResponse(jwt);
-//        return ResponseEntity.ok(response);
-//    }
 }
 
     @PutMapping("/updateuser/{id}")
@@ -240,65 +226,7 @@ class ErrorResponse {
     // Getters and setters for status and message
     // ...
 }}
-//    @PostMapping("/signup")
-//    public ResponseEntity<String> signUp(@RequestBody User user) {
-//        // Vérifie si le nom d'utilisateur est déjà pris
-//        if (userService.findByUsername(user.getUsername()) != null) {
-//            return ResponseEntity.badRequest().body("Username is already taken");
-//        }
-//
-//        // Enregistre l'utilisateur
-//        userService.save(user);
-//
-//        // Génère le token JWT après l'inscription réussie
-//        final UserDetails userDetails = userService.loadUserByUsername(user.getUsername());
-//        final String jwt = jwtUtil.generateToken(userDetails);
-//
-//        return ResponseEntity.ok(jwt); // Renvoie le token JWT
-//    }
-//
-//    @PostMapping("/signin")
-//    public ResponseEntity<String> signIn(@RequestBody User user) {
-//        try {
-//            // Tente l'authentification
-//            authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
-//            );
-//        } catch (BadCredentialsException e) {
-//            // En cas d'informations d'identification invalides
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-//        }
-//
-//        // Si l'authentification est réussie, génère le token JWT
-//        final UserDetails userDetails = userService.loadUserByUsername(user.getUsername());
-//        final String jwt = jwtUtil.generateToken(userDetails);
-//
-//        return ResponseEntity.ok(jwt); // Renvoie le token JWT
-//    }
-//}
-//
 
 
 
 
-//    @Autowired
-//    private userservice userService;
-//
-//    @PostMapping("/signup")
-//    public ResponseEntity<String> signUp(@RequestBody User user) {
-//        if (userService.findByUsername(user.getUsername()) != null) {
-//            return ResponseEntity.badRequest().body("Username is already taken");
-//        }
-//        userService.save(user);
-//        return ResponseEntity.ok("User registered successfully");
-//    }
-//
-//    @PostMapping("/signin")
-//    public ResponseEntity<String> signIn(@RequestBody User user) {
-//        User foundUser = userService.findByUsername(user.getUsername());
-//        if (foundUser == null || !foundUser.getPassword().equals(user.getPassword())) {
-//            throw new UsernameNotFoundException("Invalid username or password");
-//        }
-//        return ResponseEntity.ok("User signed in successfully");
-//    }
-//}

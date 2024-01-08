@@ -49,9 +49,11 @@ public class userservicelmlp implements userservice {
                 user.getEmail(),
                 user.getPassword(),
                 authorities,
-                user.getNom(),  // Ajout du nom de l'utilisateur
+                user.getNom(),
+                // Ajout du nom de l'utilisateur
                 user.getPrenom(),  // Ajout du prénom de l'utilisateur
-                user.getImage()
+                user.getImage(),
+                user.getId().toString()
         );
 
         return userDetails;

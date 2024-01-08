@@ -1,6 +1,7 @@
 package com.example.test_project.jwtconfigtocken;
 
 
+import com.example.test_project.entities.CustomUserDetails;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,24 +16,17 @@ public class JwtUtil {
 
     private static final String SECRET_KEY = "adnanelhayanijwtadnanelhayanijwtadnanelhayanijwt"; // Clé secrète JWT
 
-//    public String generateToken(UserDetails userDetails) {
-//        Map<String, Object> claims = new HashMap<>();
-//
-//        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-//        List<String> roles = authorities.stream()
-//                .map(GrantedAuthority::getAuthority)
-//                .collect(Collectors.toList());
-//
-//        // Ajoutez les rôles à la map des revendications
-//        claims.put("roles", roles);
-//
-//        return createToken(claims, userDetails.getUsername());
-//    }
+
 
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
+        CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
 
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", customUserDetails.getId()); // Ajouter l'ID de l'utilisateur
+        claims.put("prenom", customUserDetails.getPrenom()); // Ajouter le prénom
+        claims.put("nom", customUserDetails.getNom()); // Ajouter le nom
         claims.put("role", userDetails.getAuthorities().toString());
+
         return createToken(claims, userDetails.getUsername());
     }
 
@@ -48,3 +42,18 @@ public class JwtUtil {
 
     // Autres méthodes pour valider le token, extraire des informations du token, etc.
 }
+
+
+//    public String generateToken(UserDetails userDetails) {
+//        Map<String, Object> claims = new HashMap<>();
+//
+//        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+//        List<String> roles = authorities.stream()
+//                .map(GrantedAuthority::getAuthority)
+//                .collect(Collectors.toList());
+//
+//        // Ajoutez les rôles à la map des revendications
+//        claims.put("roles", roles);
+//
+//        return createToken(claims, userDetails.getUsername());
+//    }

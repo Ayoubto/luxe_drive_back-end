@@ -17,7 +17,7 @@ public class Voiture {
     private String marque;
     private String modèle;
     private double prix;
-    private String type;
+    private String category;
     private int nb_personnes;
     private String carburant;
     private String img;
@@ -33,7 +33,7 @@ public class Voiture {
         this.marque = marque;
         this.modèle = modèle;
         this.prix = prix;
-        this.type = type;
+        this.category = type;
         this.nb_personnes = nb_personnes;
         this.carburant = carburant;
         this.img = img;
@@ -82,11 +82,11 @@ public class Voiture {
     }
 
     public String getType() {
-        return type;
+        return category;
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.category = type;
     }
 
     public int getNb_personnes() {

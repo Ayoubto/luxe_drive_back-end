@@ -12,10 +12,10 @@ public class Agence {
 
     @Id
     private BigInteger id;
-    private String nom;
+    private String nom_agence;
     private String adresse;
-    private String telephone;
-    private String email;
+    private String telephone_agence;
+    private String email_agence;
     private Localisation localisation;
 
     public Agence() {
@@ -23,10 +23,10 @@ public class Agence {
 
     public Agence(BigInteger id, String nom, String adresse, String telephone, String email, Localisation localisation) {
         this.id = id;
-        this.nom = nom;
+        this.nom_agence = nom;
         this.adresse = adresse;
-        this.telephone = telephone;
-        this.email = email;
+        this.telephone_agence = telephone;
+        this.email_agence = email;
         this.localisation = localisation;
     }
 
@@ -39,11 +39,11 @@ public class Agence {
     }
 
     public String getNom() {
-        return nom;
+        return nom_agence;
     }
 
     public void setNom(String nom) {
-        this.nom = nom;
+        this.nom_agence = nom;
     }
 
     public String getAdresse() {
@@ -55,19 +55,19 @@ public class Agence {
     }
 
     public String getTelephone() {
-        return telephone;
+        return telephone_agence;
     }
 
     public void setTelephone(String telephone) {
-        this.telephone = telephone;
+        this.telephone_agence = telephone;
     }
 
     public String getEmail() {
-        return email;
+        return email_agence;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email_agence = email;
     }
 
     public Localisation getLocalisation() {

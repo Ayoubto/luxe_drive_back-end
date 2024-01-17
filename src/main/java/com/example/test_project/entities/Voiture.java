@@ -2,12 +2,16 @@ package com.example.test_project.entities;
 
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigInteger;
-
-@Document
+@Getter
+@Setter
+@Document( collection = "voitures")
+//@Document
 @Data
 public class Voiture {
 
@@ -17,28 +21,47 @@ public class Voiture {
     private String marque;
     private String modèle;
     private double prix;
-    private String category;
+
     private int nb_personnes;
     private String carburant;
     private String img;
     private double consommation;
+    private String status;
     private Insurance assurance;
+    private String category;
 
     public Voiture() {
     }
 
-    public Voiture(BigInteger id, String immatricule, String marque, String modèle, double prix, String type, int nb_personnes, String carburant, String img, double consommation, Insurance assurance) {
+    public Voiture(BigInteger id, String immatricule, String marque, String modèle, double prix,  int nb_personnes, String carburant, String img, double consommation,String status, Insurance assurance,String type) {
         this.id = id;
         this.immatricule = immatricule;
         this.marque = marque;
         this.modèle = modèle;
         this.prix = prix;
-        this.category = type;
         this.nb_personnes = nb_personnes;
         this.carburant = carburant;
         this.img = img;
         this.consommation = consommation;
+        this.status=status;
         this.assurance = assurance;
+        this.category = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public BigInteger getId() {

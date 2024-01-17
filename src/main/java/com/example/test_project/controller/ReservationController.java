@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +24,7 @@ public class ReservationController {
     }
 
     @PostMapping("/addreservation")
+
     public void addReservation(@RequestBody Reservation reservation) {
         reservationService.saveReservation(reservation);
     }
@@ -32,11 +35,11 @@ public class ReservationController {
 
         if (existingReservation != null) {
             if (updateReservation.getDateDebut() != null) {
-                existingReservation.setDateDebut(updateReservation.getDateDebut());
+                existingReservation.setDateDebut((updateReservation.getDateDebut()));
             }
 
             if (updateReservation.getDateFin() != null) {
-                existingReservation.setDateFin(updateReservation.getDateFin());
+                existingReservation.setDateFin((updateReservation.getDateFin()));
             }
 
             if (updateReservation.getAgence_depart_id() != null) {
@@ -63,10 +66,11 @@ public class ReservationController {
                 existingReservation.setReservation(updateReservation.getReservation());
             }
 
-            // Ajoutez les mises à jour pour les autres champs selon vos besoins
 
             reservationService.saveReservation(existingReservation);
-            return ResponseEntity.ok("Reservation updated successfully");
+//            return ResponseEntity.ok("Reservation updated successfully");
+            String successMessage = "Reservation updated successfully";
+            return ResponseEntity.ok().body("{\"message\":\""+successMessage+"\"}");
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -90,4 +94,5 @@ public class ReservationController {
         return reservation.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 }

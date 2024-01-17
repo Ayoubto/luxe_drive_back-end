@@ -6,25 +6,29 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.math.BigInteger;
-import java.util.Date;
-
+import java.time.LocalDateTime;
 
 
 @Getter
 @Setter
 @Document(collection = "reservations")
+//@Document
 @Data
 public class Reservation {
 
     @Id
     private BigInteger id;
 
-    private String dateDebut;
-    private String dateFin;
+    @Field("date_debut")
+    private LocalDateTime dateDebut;
+
+    @Field("date_fin")
+    private LocalDateTime dateFin;
+
 
 
     private String agence_depart_id;
@@ -45,9 +49,9 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(String dateDebut, String dateFin, String agenceDepart, String agenceRetour, String voiture, String user, String status, String reservation) {
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
+    public Reservation(LocalDateTime date_debut, LocalDateTime date_fin, String agenceDepart, String agenceRetour, String voiture, String user, String status, String reservation) {
+        this.dateDebut = date_debut;
+        this.dateFin = date_fin;
         this.agence_depart_id = agenceDepart;
         this.agence_retour_id = agenceRetour;
         this.voiture_id = voiture;
@@ -67,20 +71,20 @@ public class Reservation {
         this.id = id;
     }
 
-    public String getDateDebut() {
+    public LocalDateTime getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(String dateDebut) {
-        this.dateDebut = dateDebut;
+    public void setDateDebut(LocalDateTime date_debut) {
+        this.dateDebut = date_debut;
     }
 
-    public String getDateFin() {
+    public LocalDateTime getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(String dateFin) {
-        this.dateFin = dateFin;
+    public void setDateFin(LocalDateTime date_fin) {
+        this.dateFin = date_fin;
     }
 
     public String getAgence_depart_id() {

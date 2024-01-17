@@ -52,7 +52,9 @@ public class AgenceController {
             }
 
             agenceService.saveAgence(existingAgence);
-            return ResponseEntity.ok("Agence updated successfully");
+//            return ResponseEntity.ok("Agence updated successfully");
+            String successMessage = "Agence updated successfully";
+            return ResponseEntity.ok().body("{\"message\":\""+successMessage+"\"}");
         } else {
             return ResponseEntity.notFound().build();
         }

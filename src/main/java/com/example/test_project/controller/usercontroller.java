@@ -191,7 +191,8 @@ public class usercontroller {
             }
 
             userService.updateUser(existingUser); // Appel de la méthode updateUser du service
-            return ResponseEntity.ok("User updated successfully");
+            String successMessage = "User updated successfully";
+            return ResponseEntity.ok().body("{\"message\":\"" + successMessage + "\"}");
         } else {
             return ResponseEntity.notFound().build();
         }

@@ -66,9 +66,14 @@ public class VoitureController {
             if (updateVoiture.getAssurance() != null) {
                 existingVoiture.setAssurance(updateVoiture.getAssurance());
             }
+            if (updateVoiture.getStatus() != null) {
+                existingVoiture.setStatus(updateVoiture.getStatus());
+            }
 
             voitureService.saveVoiture(existingVoiture);
-            return ResponseEntity.ok("Voiture updated successfully");
+//            return ResponseEntity.ok("Voiture updated successfully");
+            String successMessage = "Voiture updated successfully";
+            return ResponseEntity.ok().body("{\"message\":\""+successMessage+"\"}");
         } else {
             return ResponseEntity.notFound().build();
         }

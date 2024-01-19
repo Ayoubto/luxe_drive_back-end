@@ -1,18 +1,24 @@
 package com.example.test_project.entities;
 
 
+import lombok.Data;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
+
 public class Insurance {
     private String code;
-    private String date;
     private String societe;
+    private LocalDateTime date;
 
     public Insurance() {
     }
 
-    public Insurance(String code, String date, String societe) {
+    public Insurance(String code, String societe, LocalDateTime date) {
         this.code = code;
-        this.date = date;
         this.societe = societe;
+        this.date = date;
     }
 
     // Getters and setters for Insurance fields
@@ -25,11 +31,11 @@ public class Insurance {
         this.code = code;
     }
 
-    public String getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

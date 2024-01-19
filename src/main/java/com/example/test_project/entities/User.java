@@ -1,5 +1,6 @@
 package com.example.test_project.entities;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.bson.types.ObjectId;
@@ -7,6 +8,7 @@ import org.bson.types.ObjectId;
 import java.math.BigInteger;
 
 @Document(collection = "users")
+@Data
 public class User {
     @Id
     private BigInteger id;

@@ -14,11 +14,12 @@ public class TestProjectApplication {
 
         @Override
         public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("/api/**") // Set the URL pattern
+            registry.addMapping("/**") // Set the URL pattern
                 .allowedOrigins("http://localhost:4200") // Allow requests from Angular app
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");
         }
+
     }
 
     public static void main(String[] args) {

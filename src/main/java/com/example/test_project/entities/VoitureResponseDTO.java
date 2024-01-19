@@ -13,7 +13,7 @@ public class VoitureResponseDTO {
     private String id;
     private String immatricule;
     private String marque;
-    private String modèle;
+    private String modele;
     private double prix;
 
     private int nb_personnes;
@@ -25,11 +25,11 @@ public class VoitureResponseDTO {
     private Insurance assurance;
     private String category;
 
-    public VoitureResponseDTO(String id, String immatricule, String marque, String modèle, double prix, int nb_personnes, String carburant, String img, double consommation, String status, Insurance assurance, String category) {
+    public VoitureResponseDTO(String id, String immatricule, String marque, String modele, double prix, int nb_personnes, String carburant, String img, double consommation, String status, Insurance assurance, String category) {
         this.id = id;
         this.immatricule = immatricule;
         this.marque = marque;
-        this.modèle = modèle;
+        this.modele = modele;
         this.prix = prix;
         this.nb_personnes = nb_personnes;
         this.carburant = carburant;
@@ -52,8 +52,8 @@ public class VoitureResponseDTO {
         return marque;
     }
 
-    public String getModèle() {
-        return modèle;
+    public String getModele() {
+        return modele;
     }
 
     public double getPrix() {

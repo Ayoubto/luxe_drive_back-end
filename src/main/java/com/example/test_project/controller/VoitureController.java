@@ -39,8 +39,8 @@ public class VoitureController {
                 existingVoiture.setMarque(updateVoiture.getMarque());
             }
 
-            if (updateVoiture.getModèle() != null) {
-                existingVoiture.setModèle(updateVoiture.getModèle());
+            if (updateVoiture.getModele() != null) {
+                existingVoiture.setModèle(updateVoiture.getModele());
             }
 
             if (updateVoiture.getPrix() != 0) {

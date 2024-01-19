@@ -3,6 +3,7 @@ package com.example.test_project.controller;
 
 import com.example.test_project.entities.CustomUserDetails;
 import com.example.test_project.entities.User;
+import com.example.test_project.entities.UserResponseDTO;
 import com.example.test_project.jwtconfigtocken.JwtUtil;
 import com.example.test_project.services.userservice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 class JwtResponse {
     private final String jwt;
@@ -202,17 +204,54 @@ public class usercontroller {
     public void deleteUser(@PathVariable BigInteger id) {
         userService.deleteUser(id);
     }
-
     @GetMapping("/getallusers")
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        List<UserResponseDTO> userDTOs = convertUsersToResponseDTOs(users);
+        return ResponseEntity.ok(userDTOs);
     }
+
     @GetMapping("/getuser/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable BigInteger id) {
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable BigInteger id) {
         Optional<User> user = userService.getUserById(id);
-        return user.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        if (user.isPresent()) {
+            UserResponseDTO userDTO = convertUserToResponseDTO(user.get());
+            return ResponseEntity.ok(userDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
+    // Ajoutez ces méthodes d'aide à votre contrôleur
+    private UserResponseDTO convertUserToResponseDTO(User user) {
+        return new UserResponseDTO(
+                user.getId().toString(),
+                user.getNom(),
+                user.getPrenom(),
+                user.getAddress(),
+                user.getTelephone(),
+                user.getEmail(),
+                user.getRole(),
+                user.getImage()
+        );
+    }
+
+    private List<UserResponseDTO> convertUsersToResponseDTOs(List<User> users) {
+        return users.stream()
+                .map(this::convertUserToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+//    @GetMapping("/getallusers")
+//    public List<User> getAllUsers() {
+//        return userService.getAllUsers();
+//    }
+//    @GetMapping("/getuser/{id}")
+//    public ResponseEntity<User> getUserById(@PathVariable BigInteger id) {
+//        Optional<User> user = userService.getUserById(id);
+//        return user.map(ResponseEntity::ok)
+//                .orElseGet(() -> ResponseEntity.notFound().build());
+//    }
 
 class ErrorResponse {
     private int status;

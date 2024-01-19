@@ -2,6 +2,7 @@ package com.example.test_project.controller;
 
 
 import com.example.test_project.entities.Message;
+import com.example.test_project.entities.MessageResponseDTO;
 import com.example.test_project.services.messageservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class MessageController {
@@ -52,17 +54,53 @@ public class MessageController {
     public void deleteMessage(@PathVariable BigInteger id) {
         messageService.deleteMessage(id);
     }
-
     @GetMapping("/getallmessages")
-    public ResponseEntity<List<Message>> getAllMessages() {
+    public ResponseEntity<List<MessageResponseDTO>> getAllMessages() {
         List<Message> messages = messageService.getAllMessages();
-        return ResponseEntity.ok(messages);
+        List<MessageResponseDTO> messageDTOs = convertMessagesToResponseDTOs(messages);
+        return ResponseEntity.ok(messageDTOs);
     }
 
     @GetMapping("/getmessage/{id}")
-    public ResponseEntity<Message> getMessageById(@PathVariable BigInteger id) {
-        Optional<Message> message = Optional.ofNullable(messageService.getMessageById(id));
-        return message.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<MessageResponseDTO> getMessageById(@PathVariable BigInteger id) {
+        Message message = messageService.getMessageById(id);
+        if (message != null) {
+            MessageResponseDTO messageDTO = convertMessageToResponseDTO(message);
+            return ResponseEntity.ok(messageDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
+    // Ajoutez ces méthodes d'aide à votre contrôleur
+    private MessageResponseDTO convertMessageToResponseDTO(Message message) {
+        return new MessageResponseDTO(
+                message.getId().toString(),
+                message.getNom_env(),
+                message.getPrenom_env(),
+                message.getEmail_env(),
+                message.getTelephone_env(),
+                message.getObjet(),
+                message.getContenu()
+        );
+    }
+
+    private List<MessageResponseDTO> convertMessagesToResponseDTOs(List<Message> messages) {
+        return messages.stream()
+                .map(this::convertMessageToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+//    @GetMapping("/getallmessages")
+//    public ResponseEntity<List<Message>> getAllMessages() {
+//        List<Message> messages = messageService.getAllMessages();
+//        return ResponseEntity.ok(messages);
+//    }
+//
+//    @GetMapping("/getmessage/{id}")
+//    public ResponseEntity<Message> getMessageById(@PathVariable BigInteger id) {
+//        Optional<Message> message = Optional.ofNullable(messageService.getMessageById(id));
+//        return message.map(ResponseEntity::ok)
+//                .orElseGet(() -> ResponseEntity.notFound().build());
+//    }
 }

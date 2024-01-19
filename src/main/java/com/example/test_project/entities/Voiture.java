@@ -19,7 +19,7 @@ public class Voiture {
     private BigInteger id;
     private String immatricule;
     private String marque;
-    private String modèle;
+    private String modele;
     private double prix;
 
     private int nb_personnes;
@@ -33,11 +33,11 @@ public class Voiture {
     public Voiture() {
     }
 
-    public Voiture(BigInteger id, String immatricule, String marque, String modèle, double prix,  int nb_personnes, String carburant, String img, double consommation,String status, Insurance assurance,String type) {
+    public Voiture(BigInteger id, String immatricule, String marque, String modele, double prix,  int nb_personnes, String carburant, String img, double consommation,String status, Insurance assurance,String type) {
         this.id = id;
         this.immatricule = immatricule;
         this.marque = marque;
-        this.modèle = modèle;
+        this.modele = modele;
         this.prix = prix;
         this.nb_personnes = nb_personnes;
         this.carburant = carburant;
@@ -89,11 +89,11 @@ public class Voiture {
     }
 
     public String getModèle() {
-        return modèle;
+        return modele;
     }
 
     public void setModèle(String modèle) {
-        this.modèle = modèle;
+        this.modele = modèle;
     }
 
     public double getPrix() {

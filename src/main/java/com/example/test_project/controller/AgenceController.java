@@ -2,6 +2,7 @@ package com.example.test_project.controller;
 
 
 import com.example.test_project.entities.Agence;
+import com.example.test_project.entities.AgenceResponseDTO;
 import com.example.test_project.services.agenceservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 
@@ -66,17 +68,53 @@ public class AgenceController {
     public void deleteAgence(@PathVariable BigInteger id) {
         agenceService.deleteAgence(id);
     }
-
     @GetMapping("/getallagences")
-    public ResponseEntity<List<Agence>> getAllAgences() {
+    public ResponseEntity<List<AgenceResponseDTO>> getAllAgences() {
         List<Agence> agences = agenceService.getAllAgences();
-        return ResponseEntity.ok(agences);
+        List<AgenceResponseDTO> agenceDTOs = convertAgencesToResponseDTOs(agences);
+        return ResponseEntity.ok(agenceDTOs);
     }
 
     @GetMapping("/getagence/{id}")
-    public ResponseEntity<Agence> getAgenceById(@PathVariable BigInteger id) {
-        Optional<Agence> agence = Optional.ofNullable(agenceService.getAgenceById(id));
-        return agence.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<AgenceResponseDTO> getAgenceById(@PathVariable BigInteger id) {
+        Agence agence = agenceService.getAgenceById(id);
+        if (agence != null) {
+            AgenceResponseDTO agenceDTO = convertAgenceToResponseDTO(agence);
+            return ResponseEntity.ok(agenceDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
+    // Helper method to convert Agence to AgenceResponseDTO
+    private AgenceResponseDTO convertAgenceToResponseDTO(Agence agence) {
+        return new AgenceResponseDTO(
+                agence.getId().toString(),
+                agence.getNom_agence(),
+                agence.getAdresse(),
+                agence.getTelephone_agence(),
+                agence.getEmail_agence(),
+                agence.getLocalisation()
+        );
+    }
+
+
+    // Helper method to convert List<Agence> to List<AgenceResponseDTO>
+    private List<AgenceResponseDTO> convertAgencesToResponseDTOs(List<Agence> agences) {
+        return agences.stream()
+                .map(this::convertAgenceToResponseDTO)
+                .collect(Collectors.toList());
+    }
+//    @GetMapping("/getallagences")
+//    public ResponseEntity<List<Agence>> getAllAgences() {
+//        List<Agence> agences = agenceService.getAllAgences();
+//        return ResponseEntity.ok(agences);
+//    }
+//
+//    @GetMapping("/getagence/{id}")
+//    public ResponseEntity<Agence> getAgenceById(@PathVariable BigInteger id) {
+//        Optional<Agence> agence = Optional.ofNullable(agenceService.getAgenceById(id));
+//        return agence.map(ResponseEntity::ok)
+//                .orElseGet(() -> ResponseEntity.notFound().build());
+//    }
 }

@@ -41,4 +41,9 @@ public class reservationservicelmpl implements reservationservice {
         // Votre logique de mise à jour ici
         // Vous pouvez récupérer la réservation, apporter des modifications et sauvegarder à nouveau
     }
+
+    @Override
+    public List<Reservation> getReservationsByUserId(String userId) {
+        return reservationRepository.findByUserId(userId);
+    }
 }

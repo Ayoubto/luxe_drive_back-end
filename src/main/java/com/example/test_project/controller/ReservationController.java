@@ -89,6 +89,17 @@ public class ReservationController {
         List<ReservationResponseDTO> reservationDTOs = convertReservationsToResponseDTOs(reservations);
         return ResponseEntity.ok(reservationDTOs);
     }
+    @GetMapping("/getreservationsbyuser/{userId}")
+    public ResponseEntity<List<ReservationResponseDTO>> getReservationsByUserId(@PathVariable String userId) {
+        List<Reservation> reservations = reservationService.getReservationsByUserId(userId);
+
+        if (reservations != null && !reservations.isEmpty()) {
+            List<ReservationResponseDTO> reservationDTOs = convertReservationsToResponseDTOs(reservations);
+            return ResponseEntity.ok(reservationDTOs);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @GetMapping("/getreservation/{id}")
     public ResponseEntity<ReservationResponseDTO> getReservationById(@PathVariable BigInteger id) {

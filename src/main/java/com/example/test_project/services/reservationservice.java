@@ -11,6 +11,8 @@ public interface reservationservice {
 
     Reservation getReservationById(BigInteger id);
 
+    List<Reservation> getReservationsByUserId(String userId);
+
     void saveReservation(Reservation reservation);
 
     void deleteReservation(BigInteger id);

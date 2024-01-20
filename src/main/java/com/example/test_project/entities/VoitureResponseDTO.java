@@ -11,7 +11,7 @@ import java.math.BigInteger;
 public class VoitureResponseDTO {
     //    @JsonProperty("id")
     private String id;
-    private String immatricule;
+    private int quantite;
     private String marque;
     private String modele;
     private double prix;
@@ -25,9 +25,9 @@ public class VoitureResponseDTO {
     private Insurance assurance;
     private String category;
 
-    public VoitureResponseDTO(String id, String immatricule, String marque, String modele, double prix, int nb_personnes, String carburant, String img, double consommation, String status, Insurance assurance, String category) {
+    public VoitureResponseDTO(String id, int quantite, String marque, String modele, double prix, int nb_personnes, String carburant, String img, double consommation, String status, Insurance assurance, String category) {
         this.id = id;
-        this.immatricule = immatricule;
+        this.quantite = quantite;
         this.marque = marque;
         this.modele = modele;
         this.prix = prix;
@@ -44,8 +44,8 @@ public class VoitureResponseDTO {
         return id;
     }
 
-    public String getImmatricule() {
-        return immatricule;
+    public int getQuantite() {
+        return quantite;
     }
 
     public String getMarque() {

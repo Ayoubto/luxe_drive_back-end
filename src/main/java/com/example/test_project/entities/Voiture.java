@@ -17,7 +17,7 @@ public class Voiture {
 
     @Id
     private BigInteger id;
-    private String immatricule;
+    private int quantite;
     private String marque;
     private String modele;
     private double prix;
@@ -33,9 +33,9 @@ public class Voiture {
     public Voiture() {
     }
 
-    public Voiture(BigInteger id, String immatricule, String marque, String modele, double prix,  int nb_personnes, String carburant, String img, double consommation,String status, Insurance assurance,String type) {
+    public Voiture(BigInteger id, int quantite, String marque, String modele, double prix,  int nb_personnes, String carburant, String img, double consommation,String status, Insurance assurance,String type) {
         this.id = id;
-        this.immatricule = immatricule;
+        this.quantite = quantite;
         this.marque = marque;
         this.modele = modele;
         this.prix = prix;
@@ -72,12 +72,12 @@ public class Voiture {
         this.id = id;
     }
 
-    public String getImmatricule() {
-        return immatricule;
+    public int getQuantite() {
+        return quantite;
     }
 
-    public void setImmatricule(String immatricule) {
-        this.immatricule = immatricule;
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
     }
 
     public String getMarque() {

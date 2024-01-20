@@ -31,8 +31,8 @@ public class VoitureController {
         Voiture existingVoiture = voitureService.getVoitureById(id);
 
         if (existingVoiture != null) {
-            if (updateVoiture.getImmatricule() != null) {
-                existingVoiture.setImmatricule(updateVoiture.getImmatricule());
+            if (updateVoiture.getQuantite() != 0) {
+                existingVoiture.setQuantite(updateVoiture.getQuantite());
             }
 
             if (updateVoiture.getMarque() != null) {
@@ -109,7 +109,7 @@ public class VoitureController {
     private VoitureResponseDTO convertVoitureToResponseDTO(Voiture voiture) {
         return new VoitureResponseDTO(
                         voiture.getId().toString(),
-                        voiture.getImmatricule(),
+                        voiture.getQuantite(),
                         voiture.getMarque(),
                         voiture.getModèle(),
                         voiture.getPrix(),

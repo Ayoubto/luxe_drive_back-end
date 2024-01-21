@@ -16,17 +16,24 @@ public class AgenceResponseDTO {
     @JsonProperty("localisation")
     private Localisation localisation;
 
+    private String manager;
+
 
     // getters and setters
 
     public AgenceResponseDTO(String id, String nom_agence, String adresse, String telephone_agence, String email_agence,
-                             Localisation localisation) {
+                             Localisation localisation, String manager) {
         this.id = id;
         this.nom_agence = nom_agence;
         this.adresse = adresse;
         this.telephone_agence = telephone_agence;
         this.email_agence = email_agence;
         this.localisation = localisation;
+        this.manager=manager;
+    }
+
+    public String getManager() {
+        return manager;
     }
 
     public String getId() {

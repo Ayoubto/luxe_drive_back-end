@@ -17,17 +17,51 @@ public class Agence {
     private String telephone_agence;
     private String email_agence;
     private Localisation localisation;
+    private BigInteger manager;
 
     public Agence() {
     }
 
-    public Agence(BigInteger id, String nom, String adresse, String telephone, String email, Localisation localisation) {
+    public Agence(BigInteger id, String nom, String adresse, String telephone, String email, Localisation localisation,BigInteger manager) {
         this.id = id;
         this.nom_agence = nom;
         this.adresse = adresse;
         this.telephone_agence = telephone;
         this.email_agence = email;
         this.localisation = localisation;
+        this.manager=manager;
+    }
+
+    public String getNom_agence() {
+        return nom_agence;
+    }
+
+    public void setNom_agence(String nom_agence) {
+        this.nom_agence = nom_agence;
+    }
+
+    public String getTelephone_agence() {
+        return telephone_agence;
+    }
+
+    public void setTelephone_agence(String telephone_agence) {
+        this.telephone_agence = telephone_agence;
+    }
+
+    public String getEmail_agence() {
+        return email_agence;
+    }
+
+    public void setEmail_agence(String email_agence) {
+        this.email_agence = email_agence;
+    }
+
+    public BigInteger getManager() {
+        return manager;
+    }
+
+    public void setManager(BigInteger manager) {
+        this.manager = manager;
     }
 
     public BigInteger getId() {

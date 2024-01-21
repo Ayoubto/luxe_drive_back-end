@@ -53,6 +53,9 @@ public class AgenceController {
             if (updateAgence.getLocalisation() != null) {
                 existingAgence.setLocalisation(updateAgence.getLocalisation());
             }
+            if (updateAgence.getManager() != null) {
+                existingAgence.setManager(updateAgence.getManager());
+            }
 
             agenceService.saveAgence(existingAgence);
 //            return ResponseEntity.ok("Agence updated successfully");
@@ -94,7 +97,8 @@ public class AgenceController {
                 agence.getAdresse(),
                 agence.getTelephone_agence(),
                 agence.getEmail_agence(),
-                agence.getLocalisation()
+                agence.getLocalisation(),
+                agence.getManager().toString()
         );
     }
 

@@ -31,6 +31,9 @@ public class VoitureController {
         Voiture existingVoiture = voitureService.getVoitureById(id);
 
         if (existingVoiture != null) {
+            if (updateVoiture.getMatricule() != null) {
+                existingVoiture.setMatricule(updateVoiture.getMatricule());
+            }
             if (updateVoiture.getQuantite() != 0) {
                 existingVoiture.setQuantite(updateVoiture.getQuantite());
             }
@@ -73,6 +76,9 @@ public class VoitureController {
             if (updateVoiture.getStatus() != null) {
                 existingVoiture.setStatus(updateVoiture.getStatus());
             }
+            if (updateVoiture.getManual_gearbox() != null) {
+                existingVoiture.setManual_gearbox(updateVoiture.getManual_gearbox());
+            }
 
             voitureService.saveVoiture(existingVoiture);
 //            return ResponseEntity.ok("Voiture updated successfully");
@@ -109,6 +115,7 @@ public class VoitureController {
     private VoitureResponseDTO convertVoitureToResponseDTO(Voiture voiture) {
         return new VoitureResponseDTO(
                         voiture.getId().toString(),
+                        voiture.getMatricule(),
                         voiture.getQuantite(),
                         voiture.getMarque(),
                         voiture.getModèle(),
@@ -119,7 +126,8 @@ public class VoitureController {
                 voiture.getConsommation(),
                 voiture.getType(),
                 voiture.getAssurance(),
-                voiture.getStatus()
+                voiture.getStatus(),
+                voiture.getManual_gearbox()
                 );
     }
 

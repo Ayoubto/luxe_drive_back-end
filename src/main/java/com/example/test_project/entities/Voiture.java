@@ -17,6 +17,7 @@ public class Voiture {
 
     @Id
     private BigInteger id;
+    private String matricule;
     private int quantite;
     private String marque;
     private String modele;
@@ -29,12 +30,14 @@ public class Voiture {
     private String status;
     private Insurance assurance;
     private String category;
+    private String manual_gearbox;
 
     public Voiture() {
     }
 
-    public Voiture(BigInteger id, int quantite, String marque, String modele, double prix,  int nb_personnes, String carburant, String img, double consommation,String status, Insurance assurance,String type) {
+    public Voiture(BigInteger id,String matricule, int quantite, String marque, String modele, double prix,  int nb_personnes, String carburant, String img, double consommation,String status, Insurance assurance,String type,String manual_gearbox) {
         this.id = id;
+        this.matricule=matricule;
         this.quantite = quantite;
         this.marque = marque;
         this.modele = modele;
@@ -46,6 +49,31 @@ public class Voiture {
         this.status=status;
         this.assurance = assurance;
         this.category = type;
+        this.manual_gearbox=manual_gearbox;
+    }
+
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public void setMatricule(String matricule) {
+        this.matricule = matricule;
+    }
+
+    public String getModele() {
+        return modele;
+    }
+
+    public void setModele(String modele) {
+        this.modele = modele;
+    }
+
+    public String getManual_gearbox() {
+        return manual_gearbox;
+    }
+
+    public void setManual_gearbox(String manual_gearbox) {
+        this.manual_gearbox = manual_gearbox;
     }
 
     public String getStatus() {

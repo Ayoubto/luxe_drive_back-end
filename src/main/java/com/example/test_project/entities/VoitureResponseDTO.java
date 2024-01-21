@@ -11,22 +11,25 @@ import java.math.BigInteger;
 public class VoitureResponseDTO {
     //    @JsonProperty("id")
     private String id;
+    private String matricule;
     private int quantite;
     private String marque;
     private String modele;
     private double prix;
-
     private int nb_personnes;
     private String carburant;
     private String img;
     private double consommation;
     private String status;
+
+    private String manual_gearbox;
     @JsonProperty("assurance")
     private Insurance assurance;
     private String category;
 
-    public VoitureResponseDTO(String id, int quantite, String marque, String modele, double prix, int nb_personnes, String carburant, String img, double consommation, String status, Insurance assurance, String category) {
+    public VoitureResponseDTO(String id,String matricule, int quantite, String marque, String modele, double prix, int nb_personnes, String carburant, String img, double consommation, String status, Insurance assurance, String category,String manual_gearbox) {
         this.id = id;
+        this.matricule=matricule;
         this.quantite = quantite;
         this.marque = marque;
         this.modele = modele;
@@ -38,6 +41,15 @@ public class VoitureResponseDTO {
         this.status = status;
         this.assurance = assurance;
         this.category = category;
+        this.manual_gearbox=manual_gearbox;
+    }
+
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public String getManual_gearbox() {
+        return manual_gearbox;
     }
 
     public String getId() {

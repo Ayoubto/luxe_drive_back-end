@@ -118,10 +118,10 @@ public class ReservationController {
                 reservation.getId().toString(),
                 reservation.getDateDebut(),
                 reservation.getDateFin(),
-                reservation.getAgence_depart_id(),
-                reservation.getAgence_retour_id(),
-                reservation.getVoiture_id(),
-                reservation.getUser_id(),
+                reservation.getAgence_depart_id().toString(),
+                reservation.getAgence_retour_id().toString(),
+                reservation.getVoiture_id().toString(),
+                reservation.getUser_id().toString(),
                 reservation.getStatus(),
                 reservation.getReservation()
         );

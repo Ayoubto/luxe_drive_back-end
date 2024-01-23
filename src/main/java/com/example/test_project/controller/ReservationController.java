@@ -68,6 +68,10 @@ public class ReservationController {
             if (updateReservation.getReservation() != null) {
                 existingReservation.setReservation(updateReservation.getReservation());
             }
+            if (updateReservation.getPrix_Total() != 0) {
+                existingReservation.setPrix_Total(updateReservation.getPrix_Total());
+            }
+
 
 
             reservationService.saveReservation(existingReservation);
@@ -113,7 +117,6 @@ public class ReservationController {
         }
     }
 
-    // Ajoutez ces méthodes d'aide à votre contrôleur
     private ReservationResponseDTO convertReservationToResponseDTO(Reservation reservation) {
         return new ReservationResponseDTO(
                 reservation.getId().toString(),
@@ -124,7 +127,8 @@ public class ReservationController {
                 reservation.getVoiture_id().toString(),
                 reservation.getUser_id().toString(),
                 reservation.getStatus(),
-                reservation.getReservation()
+                reservation.getReservation(),
+                reservation.getPrix_Total()
         );
     }
 

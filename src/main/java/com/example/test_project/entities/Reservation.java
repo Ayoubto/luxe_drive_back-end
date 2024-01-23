@@ -43,13 +43,14 @@ public class Reservation {
 
     private String status;
     private String reservation;
+    private double Prix_Total;
 
 
 
     public Reservation() {
     }
 
-    public Reservation(LocalDateTime date_debut, LocalDateTime date_fin, BigInteger agenceDepart, BigInteger agenceRetour, BigInteger voiture, BigInteger user, String status, String reservation) {
+    public Reservation(LocalDateTime date_debut, LocalDateTime date_fin, BigInteger agenceDepart, BigInteger agenceRetour, BigInteger voiture, BigInteger user, String status, String reservation,double Prix_Total) {
         this.dateDebut = date_debut;
         this.dateFin = date_fin;
         this.agence_depart_id = agenceDepart;
@@ -58,10 +59,13 @@ public class Reservation {
         this.user_id = user;
         this.status = status;
         this.reservation = reservation;
+        this.Prix_Total=Prix_Total;
     }
 
 
-
+    public double getPrix_Total() {
+        return Prix_Total;
+    }
 
     public BigInteger getId() {
         return id;

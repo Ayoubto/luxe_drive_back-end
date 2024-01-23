@@ -44,7 +44,7 @@ public class Reservation {
     private String status;
     private String reservation;
 
-    // Constructeurs, getters, setters
+
 
     public Reservation() {
     }
@@ -60,7 +60,7 @@ public class Reservation {
         this.reservation = reservation;
     }
 
-    // Getters and setters for other fields
+
 
 
     public BigInteger getId() {

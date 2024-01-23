@@ -24,6 +24,7 @@ public class userservicelmlp implements userservice {
 
     @Autowired
     private PasswordEncoder passwordEncoder; // Injection du PasswordEncoder
+
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
@@ -44,14 +45,14 @@ public class userservicelmlp implements userservice {
 
         List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
 
-        // Création de CustomUserDetails avec le prénom et le nom
+
         UserDetails userDetails = new CustomUserDetails(
                 user.getEmail(),
                 user.getPassword(),
                 authorities,
                 user.getNom(),
-                // Ajout du nom de l'utilisateur
-                user.getPrenom(),  // Ajout du prénom de l'utilisateur
+
+                user.getPrenom(),
                 user.getImage(),
                 user.getId().toString()
         );
@@ -69,10 +70,6 @@ public class userservicelmlp implements userservice {
         return users;
 
     }
-
-
-
-
 
     public void saveUser(User user) {
         this.userRepository.save(user);
@@ -95,36 +92,4 @@ public class userservicelmlp implements userservice {
     public void updateUser(User user) {
         userRepository.save(user);
     }
-
-//    @Override
-//    public void updateUser(BigInteger id) {
-//
-//    }
-
-
-
 }
-//    @Override
-//    public User findByUsername(String username) {
-//        return userRepository.findByUsername(username);
-//    }
-//
-//    @Override
-//    public User save(User user) {
-//        user.setPassword(passwordEncoder.encode(user.getPassword())); // Utilisation de passwordEncoder
-//        return userRepository.save(user);
-//    }
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = userRepository.findByUsername(username);
-//        if (user == null) {
-//            throw new UsernameNotFoundException("Invalid username or password.");
-//        }
-//        return new org.springframework.security.core.userdetails.User(
-//                user.getUsername(),
-//                user.getPassword(),
-//                // Add roles or authorities if needed
-//                Collections.emptyList()
-//        );
-//    }
-//}

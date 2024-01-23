@@ -13,7 +13,6 @@ public class MessageResponseDTO {
     private String objet;
     private String contenu;
 
-    // Constructeurs, getters, setters
 
     public MessageResponseDTO(String id, String nom_env, String prenom_env, String email_env, String telephone_env, String objet, String contenu) {
         this.id = id;
@@ -53,5 +52,5 @@ public class MessageResponseDTO {
         return contenu;
     }
 
-    // Autres méthodes si nécessaires
+
 }

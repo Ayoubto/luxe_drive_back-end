@@ -25,8 +25,8 @@ class JwtResponse {
     private final String id;
     private final String email;
     private final String role;
-    private String prenom; // Ajout du champ prenom
-    private String nom; // Ajout du champ nom
+    private String prenom;
+    private String nom;
     private String image;
 
     public JwtResponse(String jwt, String id, String email, String role) {
@@ -101,10 +101,10 @@ public class usercontroller {
             return ResponseEntity.badRequest().body(new JwtResponse("Email is already taken",null,"",""));
         }
 
-        // Vérification du champ rôle
+
         String role = (user.getRole() == null || user.getRole().isEmpty()) ? "user" : user.getRole();
 
-        // Définir le rôle par défaut si le champ est vide
+
         user.setRole(role);
 
         userService.save(user);
@@ -132,7 +132,7 @@ public class usercontroller {
             String nom = ((CustomUserDetails) userDetails).getNom();
             String image = ((CustomUserDetails) userDetails).getImage(); // Récupération de l'image
 
-            // Création de JwtResponse avec l'image
+
             JwtResponse response = new JwtResponse(jwt, userId, username, role);
             response.setPrenom(prenom);
             response.setNom(nom);
@@ -243,16 +243,6 @@ public class usercontroller {
                 .collect(Collectors.toList());
     }
 
-//    @GetMapping("/getallusers")
-//    public List<User> getAllUsers() {
-//        return userService.getAllUsers();
-//    }
-//    @GetMapping("/getuser/{id}")
-//    public ResponseEntity<User> getUserById(@PathVariable BigInteger id) {
-//        Optional<User> user = userService.getUserById(id);
-//        return user.map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
 
 class ErrorResponse {
     private int status;
@@ -263,8 +253,7 @@ class ErrorResponse {
         this.message = message;
     }
 
-    // Getters and setters for status and message
-    // ...
+
 }}
 
 

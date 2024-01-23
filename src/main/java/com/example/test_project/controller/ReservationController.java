@@ -113,7 +113,7 @@ public class ReservationController {
         }
     }
 
-
+    // Ajoutez ces méthodes d'aide à votre contrôleur
     private ReservationResponseDTO convertReservationToResponseDTO(Reservation reservation) {
         return new ReservationResponseDTO(
                 reservation.getId().toString(),
@@ -134,13 +134,13 @@ public class ReservationController {
                 .collect(Collectors.toList());
     }
     @PatchMapping("/updatestatus/{id}")
-    public ResponseEntity<String> updateStatus(@PathVariable String id, @RequestBody Map<String, String> statusMap) {
+    public ResponseEntity<String> updateStatus(@PathVariable String id){
         BigInteger reservationId = new BigInteger(id);
         Optional<Reservation> optionalReservation = Optional.ofNullable(reservationService.getReservationById(reservationId));
 
         if (optionalReservation.isPresent()) {
             Reservation reservation = optionalReservation.get();
-            String newStatus = statusMap.get("status");
+            String newStatus = "confirmée";
             reservation.setStatus(newStatus);
             reservationService.saveReservation(reservation);
             String successMessage = "Status updated successfully";
@@ -149,5 +149,6 @@ public class ReservationController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
 }

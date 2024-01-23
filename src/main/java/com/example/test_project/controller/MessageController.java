@@ -42,7 +42,7 @@ public class MessageController {
             existingMessage.setContenu(updateMessage.getContenu());
 
             messageService.saveMessage(existingMessage);
-//            return ResponseEntity.ok("Message updated successfully");
+
             String successMessage = "Messsage updated successfully";
             return ResponseEntity.ok().body("{\"message\":\""+successMessage+"\"}");
         } else {
@@ -72,7 +72,6 @@ public class MessageController {
         }
     }
 
-
     private MessageResponseDTO convertMessageToResponseDTO(Message message) {
         return new MessageResponseDTO(
                 message.getId().toString(),
@@ -90,6 +89,5 @@ public class MessageController {
                 .map(this::convertMessageToResponseDTO)
                 .collect(Collectors.toList());
     }
-
 
 }

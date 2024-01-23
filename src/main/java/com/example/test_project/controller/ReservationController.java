@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -132,6 +133,23 @@ public class ReservationController {
                 .map(this::convertReservationToResponseDTO)
                 .collect(Collectors.toList());
     }
+    @PatchMapping("/updatestatus/{id}")
+    public ResponseEntity<String> updateStatus(@PathVariable String id, @RequestBody Map<String, String> statusMap) {
+        BigInteger reservationId = new BigInteger(id);
+        Optional<Reservation> optionalReservation = Optional.ofNullable(reservationService.getReservationById(reservationId));
+
+        if (optionalReservation.isPresent()) {
+            Reservation reservation = optionalReservation.get();
+            String newStatus = statusMap.get("status");
+            reservation.setStatus(newStatus);
+            reservationService.saveReservation(reservation);
+            String successMessage = "Status updated successfully";
+            return ResponseEntity.ok().body("{\"message\":\""+successMessage+"\"}");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 //    @GetMapping("/getallreservations")
 //    public ResponseEntity<List<Reservation>> getAllReservations() {

@@ -46,4 +46,5 @@ public class reservationservicelmpl implements reservationservice {
     public List<Reservation> getReservationsByUserId(String userId) {
         return reservationRepository.findByUserId(userId);
     }
+
 }

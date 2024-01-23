@@ -149,8 +149,8 @@ public class ReservationController {
             return ResponseEntity.notFound().build();
         }
     }
-    @PatchMapping("/updatereservation/{id}")
-    public ResponseEntity<String> updatereservation(@PathVariable String id, @RequestBody Map<String, String> reservationMap){
+    @PatchMapping("/updatechampreservation/{id}")
+    public ResponseEntity<String> updatechampreservation(@PathVariable String id, @RequestBody Map<String, String> reservationMap){
         BigInteger reservationId = new BigInteger(id);
         Optional<Reservation> optionalReservation = Optional.ofNullable(reservationService.getReservationById(reservationId));
 

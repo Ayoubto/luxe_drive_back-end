@@ -89,7 +89,7 @@ public class AgenceController {
         }
     }
 
-    // Helper method to convert Agence to AgenceResponseDTO
+
     private AgenceResponseDTO convertAgenceToResponseDTO(Agence agence) {
         return new AgenceResponseDTO(
                 agence.getId().toString(),

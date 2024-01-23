@@ -33,7 +33,7 @@ public class MessageController {
         Message existingMessage = messageService.getMessageById(id);
 
         if (existingMessage != null) {
-            // Mettez à jour les champs nécessaires ici
+
             existingMessage.setNom_env(updateMessage.getNom_env());
             existingMessage.setPrenom_env(updateMessage.getPrenom_env());
             existingMessage.setEmail_env(updateMessage.getEmail_env());
@@ -72,7 +72,7 @@ public class MessageController {
         }
     }
 
-    // Ajoutez ces méthodes d'aide à votre contrôleur
+
     private MessageResponseDTO convertMessageToResponseDTO(Message message) {
         return new MessageResponseDTO(
                 message.getId().toString(),
@@ -91,16 +91,5 @@ public class MessageController {
                 .collect(Collectors.toList());
     }
 
-//    @GetMapping("/getallmessages")
-//    public ResponseEntity<List<Message>> getAllMessages() {
-//        List<Message> messages = messageService.getAllMessages();
-//        return ResponseEntity.ok(messages);
-//    }
-//
-//    @GetMapping("/getmessage/{id}")
-//    public ResponseEntity<Message> getMessageById(@PathVariable BigInteger id) {
-//        Optional<Message> message = Optional.ofNullable(messageService.getMessageById(id));
-//        return message.map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
+
 }

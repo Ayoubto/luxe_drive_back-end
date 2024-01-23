@@ -71,7 +71,7 @@ public class ReservationController {
 
 
             reservationService.saveReservation(existingReservation);
-//            return ResponseEntity.ok("Reservation updated successfully");
+
             String successMessage = "Reservation updated successfully";
             return ResponseEntity.ok().body("{\"message\":\""+successMessage+"\"}");
         } else {
@@ -113,7 +113,7 @@ public class ReservationController {
         }
     }
 
-    // Ajoutez ces méthodes d'aide à votre contrôleur
+
     private ReservationResponseDTO convertReservationToResponseDTO(Reservation reservation) {
         return new ReservationResponseDTO(
                 reservation.getId().toString(),
@@ -149,19 +149,5 @@ public class ReservationController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
-//    @GetMapping("/getallreservations")
-//    public ResponseEntity<List<Reservation>> getAllReservations() {
-//        List<Reservation> reservations = reservationService.getAllResevations();
-//        return ResponseEntity.ok(reservations);
-//    }
-//
-//    @GetMapping("/getreservation/{id}")
-//    public ResponseEntity<Reservation> getReservationById(@PathVariable BigInteger id) {
-//        Optional<Reservation> reservation = Optional.ofNullable(reservationService.getReservationById(id));
-//        return reservation.map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
 
 }

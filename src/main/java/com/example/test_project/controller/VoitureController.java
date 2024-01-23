@@ -131,29 +131,14 @@ public class VoitureController {
                 );
     }
 
-//    private List<VoitureResponseDTO> convertVoituresToResponseDTOs(List<Voiture> voitures) {
-//        return voitures.stream()
-//                .map(this::convertVoitureToResponseDTO)
-//                .collect(Collectors.toList());
-//    }
+
 private List<VoitureResponseDTO> convertVoituresToResponseDTOs(List<Voiture> voiture) {
     return voiture.stream()
             .map(this::convertVoitureToResponseDTO)
             .collect(Collectors.toList());
 }
 
-//    @GetMapping("/getallvoitures")
-//    public ResponseEntity<List<Voiture>>  getAllVoitures() {
-//        List<Voiture> voiture =voitureService.getAllVoitures();
-//        return ResponseEntity.ok(voiture);
-//    }
-//
-//    @GetMapping("/getvoiture/{id}")
-//    public ResponseEntity<Voiture> getVoitureById(@PathVariable BigInteger id) {
-//        Optional<Voiture> voiture = Optional.ofNullable(voitureService.getVoitureById(id));
-//        return voiture.map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
+
 }
 
 

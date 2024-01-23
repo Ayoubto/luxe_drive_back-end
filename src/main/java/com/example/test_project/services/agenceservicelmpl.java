@@ -38,16 +38,6 @@ public class agenceservicelmpl implements agenceservice {
     }
 
     public void updateAgence(BigInteger id) {
-//        Optional<Agence> existingAgenceOptional = agenceRepository.findById(id);
-//
-//        existingAgenceOptional.ifPresent(existingAgence -> {
-//            existingAgence.setNom(updatedAgence.getNom());
-//            existingAgence.setAdresse(updatedAgence.getAdresse());
-//            existingAgence.setTelephone(updatedAgence.getTelephone());
-//            existingAgence.setEmail(updatedAgence.getEmail());
-//            existingAgence.setLocalisation(updatedAgence.getLocalisation());
-//
-//            agenceRepository.save(existingAgence);
-//        });
+
     }
 }

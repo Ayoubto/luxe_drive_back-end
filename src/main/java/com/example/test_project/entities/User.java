@@ -18,10 +18,9 @@ public class User {
     private String telephone;
     private String email;
     private String password;
-    private String confirmePassword; // Renommé Confirme_password en confirmePassword
+    private String confirmePassword;
     private String role;
     private  String image="image path";
-    // Getters and setters
 
 
     public BigInteger getId() {

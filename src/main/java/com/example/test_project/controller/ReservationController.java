@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -132,18 +133,22 @@ public class ReservationController {
                 .map(this::convertReservationToResponseDTO)
                 .collect(Collectors.toList());
     }
+    @PatchMapping("/updatestatus/{id}")
+    public ResponseEntity<String> updateStatus(@PathVariable String id){
+        BigInteger reservationId = new BigInteger(id);
+        Optional<Reservation> optionalReservation = Optional.ofNullable(reservationService.getReservationById(reservationId));
 
-//    @GetMapping("/getallreservations")
-//    public ResponseEntity<List<Reservation>> getAllReservations() {
-//        List<Reservation> reservations = reservationService.getAllResevations();
-//        return ResponseEntity.ok(reservations);
-//    }
-//
-//    @GetMapping("/getreservation/{id}")
-//    public ResponseEntity<Reservation> getReservationById(@PathVariable BigInteger id) {
-//        Optional<Reservation> reservation = Optional.ofNullable(reservationService.getReservationById(id));
-//        return reservation.map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
+        if (optionalReservation.isPresent()) {
+            Reservation reservation = optionalReservation.get();
+            String newStatus = "confirmée";
+            reservation.setStatus(newStatus);
+            reservationService.saveReservation(reservation);
+            String successMessage = "Status updated successfully";
+            return ResponseEntity.ok().body("{\"message\":\""+successMessage+"\"}");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

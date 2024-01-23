@@ -1,6 +1,5 @@
 package com.example.test_project.entities;
 
-import java.math.BigInteger;
 
 public class UserResponseDTO {
 
@@ -13,7 +12,7 @@ public class UserResponseDTO {
     private String role;
     private String image;
 
-    // Constructeurs, getters, setters
+
 
     public UserResponseDTO(String id, String nom, String prenom, String address, String telephone, String email, String role, String image) {
         this.id = id;
@@ -58,6 +57,6 @@ public class UserResponseDTO {
         return image;
     }
 
-    // Autres méthodes si nécessaires
+
 }
 

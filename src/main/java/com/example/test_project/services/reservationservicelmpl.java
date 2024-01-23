@@ -38,12 +38,12 @@ public class reservationservicelmpl implements reservationservice {
 
     @Override
     public void updateReservation(BigInteger id) {
-        // Votre logique de mise à jour ici
-        // Vous pouvez récupérer la réservation, apporter des modifications et sauvegarder à nouveau
+
     }
 
     @Override
     public List<Reservation> getReservationsByUserId(String userId) {
         return reservationRepository.findByUserId(userId);
     }
+
 }

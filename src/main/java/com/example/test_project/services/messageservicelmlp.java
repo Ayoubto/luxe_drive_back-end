@@ -41,7 +41,6 @@ public class messageservicelmlp implements messageservice {
 
     @Override
     public void updateMessage(BigInteger id) {
-        // Votre logique de mise à jour ici
-        // Vous pouvez récupérer le message, apporter des modifications et sauvegarder à nouveau
+
     }
 }

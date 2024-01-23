@@ -15,7 +15,6 @@ public class ReservationResponseDTO {
     private String status;
     private String reservation;
 
-    // Constructeurs, getters, setters
 
     public ReservationResponseDTO(String id, LocalDateTime dateDebut, LocalDateTime dateFin, String agence_depart_id, String agence_retour_id,
                                   String voiture_id, String user_id, String status, String reservation) {
@@ -66,5 +65,5 @@ public class ReservationResponseDTO {
         return reservation;
     }
 
-    // Autres méthodes si nécessaires
+
 }

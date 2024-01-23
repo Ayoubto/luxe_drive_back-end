@@ -40,20 +40,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Autres méthodes pour valider le token, extraire des informations du token, etc.
+
 }
 
 
-//    public String generateToken(UserDetails userDetails) {
-//        Map<String, Object> claims = new HashMap<>();
-//
-//        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-//        List<String> roles = authorities.stream()
-//                .map(GrantedAuthority::getAuthority)
-//                .collect(Collectors.toList());
-//
-//        // Ajoutez les rôles à la map des revendications
-//        claims.put("roles", roles);
-//
-//        return createToken(claims, userDetails.getUsername());
-//    }

@@ -58,7 +58,7 @@ public class AgenceController {
             }
 
             agenceService.saveAgence(existingAgence);
-//            return ResponseEntity.ok("Agence updated successfully");
+
             String successMessage = "Agence updated successfully";
             return ResponseEntity.ok().body("{\"message\":\""+successMessage+"\"}");
         } else {
@@ -103,22 +103,11 @@ public class AgenceController {
     }
 
 
-    // Helper method to convert List<Agence> to List<AgenceResponseDTO>
+
     private List<AgenceResponseDTO> convertAgencesToResponseDTOs(List<Agence> agences) {
         return agences.stream()
                 .map(this::convertAgenceToResponseDTO)
                 .collect(Collectors.toList());
     }
-//    @GetMapping("/getallagences")
-//    public ResponseEntity<List<Agence>> getAllAgences() {
-//        List<Agence> agences = agenceService.getAllAgences();
-//        return ResponseEntity.ok(agences);
-//    }
-//
-//    @GetMapping("/getagence/{id}")
-//    public ResponseEntity<Agence> getAgenceById(@PathVariable BigInteger id) {
-//        Optional<Agence> agence = Optional.ofNullable(agenceService.getAgenceById(id));
-//        return agence.map(ResponseEntity::ok)
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
+
 }

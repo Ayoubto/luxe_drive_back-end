@@ -16,7 +16,7 @@ public class Message {
     private String objet;
     private String contenu;
 
-    // Constructeurs, getters, setters
+
 
     public Message() {
     }

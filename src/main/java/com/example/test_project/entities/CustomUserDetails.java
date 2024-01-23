@@ -39,9 +39,3 @@ public class CustomUserDetails extends org.springframework.security.core.userdet
         return  id ;
     }
 }
-//    public CustomUserDetails(String username, String password, String image, Collection<? extends GrantedAuthority> authorities, String nom, String prenom,  String image1) {
-//        super(username, password,image1 ,authorities);
-//        this.nom = nom;
-//        this.prenom = prenom;
-//        this.image = image1;
-//    }

@@ -5,6 +5,7 @@ import com.example.test_project.entities.CustomUserDetails;
 import com.example.test_project.entities.User;
 import com.example.test_project.entities.UserResponseDTO;
 import com.example.test_project.jwtconfigtocken.JwtUtil;
+import com.example.test_project.services.EmailService;
 import com.example.test_project.services.userservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -94,6 +95,20 @@ public class usercontroller {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private EmailService emailService;
+
+    @PostMapping("/addUser")
+    public String addUser(@RequestBody User user) {
+        // Enregistrez l'utilisateur dans la base de données MongoDB
+        userService.save(user);
+
+        // Envoyez un e-mail de bienvenue
+        emailService.sendWelcomeEmail(user.getPrenom(), user.getEmail());
+
+        return "Utilisateur ajouté avec succès!";
+    }
+
 
     @PostMapping("/signup")
     public ResponseEntity<JwtResponse> signUp(@RequestBody User user) {
@@ -154,8 +169,7 @@ public class usercontroller {
 
 
     private Long getUserId(UserDetails userDetails) {
-        // Logique pour extraire l'ID de l'utilisateur depuis UserDetails
-        // Vous devrez implémenter cette logique en fonction de la manière dont vous gérez les ID des utilisateurs
+
         return null;
 
 }
@@ -223,7 +237,7 @@ public class usercontroller {
         }
     }
 
-    // Ajoutez ces méthodes d'aide à votre contrôleur
+
     private UserResponseDTO convertUserToResponseDTO(User user) {
         return new UserResponseDTO(
                 user.getId().toString(),

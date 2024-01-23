@@ -149,6 +149,22 @@ public class ReservationController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PatchMapping("/updatereservation/{id}")
+    public ResponseEntity<String> updatereservation(@PathVariable String id, @RequestBody Map<String, String> reservationMap){
+        BigInteger reservationId = new BigInteger(id);
+        Optional<Reservation> optionalReservation = Optional.ofNullable(reservationService.getReservationById(reservationId));
+
+        if (optionalReservation.isPresent()) {
+            Reservation reservation = optionalReservation.get();
+            String newreservation = reservationMap.get("reservation");
+            reservation.setReservation(newreservation);
+            reservationService.saveReservation(reservation);
+            String successMessage = "reservation updated successfully";
+            return ResponseEntity.ok().body("{\"message\":\""+successMessage+"\"}");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 }

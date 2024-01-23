@@ -27,10 +27,16 @@ public class ReservationController {
     }
 
     @PostMapping("/addreservation")
-
-    public void addReservation(@RequestBody Reservation reservation) {
+    public ResponseEntity<String> addReservation(@RequestBody Reservation reservation) {
         reservationService.saveReservation(reservation);
+
+        // Récupérez l'ID de la réservation après l'ajout
+        BigInteger reservationId = reservation.getId();
+
+        String successMessage = "Reservation added successfully with ID: " + reservationId;
+        return ResponseEntity.ok().body("{\"message\":\"" + successMessage + "\"}");
     }
+
 
     @PutMapping("/updatereservation/{id}")
     public ResponseEntity<String> updateReservation(@PathVariable BigInteger id, @RequestBody Reservation updateReservation) {

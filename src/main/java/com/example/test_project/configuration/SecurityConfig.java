@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private userservicelmlp userService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder; // Injection du PasswordEncoder
+    private PasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

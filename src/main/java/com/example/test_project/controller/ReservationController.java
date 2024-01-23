@@ -71,7 +71,7 @@ public class ReservationController {
 
 
             reservationService.saveReservation(existingReservation);
-//            return ResponseEntity.ok("Reservation updated successfully");
+
             String successMessage = "Reservation updated successfully";
             return ResponseEntity.ok().body("{\"message\":\""+successMessage+"\"}");
         } else {

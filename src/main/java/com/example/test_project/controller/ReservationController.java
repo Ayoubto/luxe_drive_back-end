@@ -33,8 +33,8 @@ public class ReservationController {
         // Récupérez l'ID de la réservation après l'ajout
         BigInteger reservationId = reservation.getId();
 
-        String successMessage = "Reservation added successfully with ID: " + reservationId;
-        return ResponseEntity.ok().body("{\"message\":\"" + successMessage + "\"}");
+
+        return ResponseEntity.ok().body("{\"message\":\"" + reservationId + "\"}");
     }
 
 

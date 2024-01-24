@@ -8,6 +8,7 @@ import com.example.test_project.jwtconfigtocken.JwtUtil;
 import com.example.test_project.services.EmailService;
 import com.example.test_project.services.userservice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -181,9 +182,10 @@ public class usercontroller {
 
             UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
 
-            if (!((User) userDetails).isValidated()) {
-                // Le compte n'est pas encore validé
-                return ResponseEntity.badRequest().body(new JwtResponse("Compte non validé", null, "", ""));
+            if (!((CustomUserDetails) userDetails).isValidated()) {
+                // User account is not validated
+                String errorMessage = "Veuillez activer votre compte en vérifiant votre e-mail.";
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new JwtResponse(errorMessage, null, "", ""));
             }
 
             String jwt = jwtUtil.generateToken(userDetails);
@@ -205,6 +207,8 @@ public class usercontroller {
             return ResponseEntity.badRequest().body(new JwtResponse(errorMessage, null, "", ""));
         }
     }
+
+
 
 
 //    @PostMapping("/signin")

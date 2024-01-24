@@ -13,15 +13,18 @@ public class CustomUserDetails extends org.springframework.security.core.userdet
     private final String prenom;
     private final String image;
     private final String id;
+    private boolean validated;
 
 
-    public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities, String nom, String prenom, String image, String id) {
+    public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities, String nom, String prenom, String image, String id, boolean validated) {
         super(username, password, authorities);
         this.nom = nom;
         this.prenom = prenom;
         this.image = image;
         this.id = id;
+        this.validated = validated;
     }
+
 
 
     public String getNom() {
@@ -39,4 +42,9 @@ public class CustomUserDetails extends org.springframework.security.core.userdet
     public String getId() {
         return  id ;
     }
+    public boolean isValidated() {
+        return validated;
+    }
+
+
 }

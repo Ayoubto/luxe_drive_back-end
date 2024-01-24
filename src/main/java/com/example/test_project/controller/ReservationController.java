@@ -128,10 +128,10 @@ public class ReservationController {
                 reservation.getId().toString(),
                 reservation.getDateDebut(),
                 reservation.getDateFin(),
-                reservation.getAgence_depart_id().toString(),
-                reservation.getAgence_retour_id().toString(),
-                reservation.getVoiture_id().toString(),
-                reservation.getUser_id().toString(),
+                reservation.getAgence_depart_id(),
+                reservation.getAgence_retour_id(),
+                reservation.getVoiture_id(),
+                reservation.getUser_id(),
                 reservation.getStatus(),
                 reservation.getReservation(),
                 reservation.getPrix_Total()
@@ -150,7 +150,7 @@ public class ReservationController {
 
         if (optionalReservation.isPresent()) {
             Reservation reservation = optionalReservation.get();
-            String newStatus = "confirmée";
+            String newStatus = "Confirmée";
             reservation.setStatus(newStatus);
             reservationService.saveReservation(reservation);
             String successMessage = "Status updated successfully";

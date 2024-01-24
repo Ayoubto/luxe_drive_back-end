@@ -51,11 +51,12 @@ public class userservicelmlp implements userservice {
                 user.getPassword(),
                 authorities,
                 user.getNom(),
-
                 user.getPrenom(),
                 user.getImage(),
-                user.getId().toString()
+                user.getId().toString(),
+                user.isValidated()  // Pass the validated value from the User object
         );
+
 
         return userDetails;
     }

@@ -21,6 +21,7 @@ public class User {
     private String confirmePassword;
     private String role;
     private  String image="image path";
+    private boolean validated;
 
 
     public BigInteger getId() {
@@ -101,5 +102,13 @@ public class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public boolean isValidated() {
+        return validated;
+    }
+
+    public void setValidated(boolean validated) {
+        this.validated = validated;
     }
 }

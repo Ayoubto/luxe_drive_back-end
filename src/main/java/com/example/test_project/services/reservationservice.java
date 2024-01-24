@@ -12,6 +12,7 @@ public interface reservationservice {
     Reservation getReservationById(BigInteger id);
 
     List<Reservation> getReservationsByUserId(String userId);
+    String getUserEmailById(String userId) ;
 
     void saveReservation(Reservation reservation);
 

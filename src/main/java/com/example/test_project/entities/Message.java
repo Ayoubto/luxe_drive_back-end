@@ -15,19 +15,30 @@ public class Message {
     private String telephone_env;
     private String objet;
     private String contenu;
+    private boolean important;
 
 
 
     public Message() {
     }
 
-    public Message(String nom_env, String prenom_env, String email_env, String telephone_env, String objet, String contenu) {
+    public Message(String nom_env, String prenom_env, String email_env, String telephone_env, String objet, String contenu,boolean important) {
         this.nom_env = nom_env;
         this.prenom_env = prenom_env;
         this.email_env = email_env;
         this.telephone_env = telephone_env;
         this.objet = objet;
         this.contenu = contenu;
+        this.important=important;
+
+    }
+
+    public boolean isImportant() {
+        return important;
+    }
+
+    public void setImportant(boolean important) {
+        this.important = important;
     }
 
     public BigInteger getId() {

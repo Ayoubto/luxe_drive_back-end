@@ -3,6 +3,7 @@ package com.example.test_project.controller;
 
 import com.example.test_project.entities.Reservation;
 import com.example.test_project.entities.ReservationResponseDTO;
+import com.example.test_project.services.EmailService;
 import com.example.test_project.services.reservationservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,17 @@ public class ReservationController {
 
     private final reservationservice reservationService;
 
+    private  EmailService emailService;
+
+
     @Autowired
-    public ReservationController(reservationservice reservationService) {
+    public ReservationController(reservationservice reservationService, EmailService emailService) {
         this.reservationService = reservationService;
+        this.emailService = emailService;
     }
+
+
+
 
     @PostMapping("/addreservation")
     public ResponseEntity<String> addReservation(@RequestBody Reservation reservation) {
@@ -33,9 +41,24 @@ public class ReservationController {
         // Récupérez l'ID de la réservation après l'ajout
         BigInteger reservationId = reservation.getId();
 
+        // Retrieve user email by user ID
+        String userId = reservation.getUser_id(); // Assuming userId is a string
+        String userEmail = reservationService.getUserEmailById(userId);
 
-        return ResponseEntity.ok().body("{\"message\":\"" + reservationId + "\"}");
+        if (userEmail != null) {
+
+
+            // Send confirmation email
+            emailService.sendConfirmationEmailResercation(reservation,userEmail);
+
+            return ResponseEntity.ok().body("{\"message\":\"" + reservationId + "\"}");
+        } else {
+            // Handle the case where user email is not found
+            return ResponseEntity.badRequest().body("{\"error\":\"User email not found for user ID: " + userId + "\"}");
+        }
     }
+
+
 
 
     @PutMapping("/updatereservation/{id}")

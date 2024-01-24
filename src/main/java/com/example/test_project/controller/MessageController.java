@@ -71,6 +71,20 @@ public class MessageController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping("/markasimportant/{id}")
+    public ResponseEntity<String> markAsImportant(@PathVariable BigInteger id) {
+        Message existingMessage = messageService.getMessageById(id);
+
+        if (existingMessage != null) {
+            existingMessage.setImportant(true);
+            messageService.saveMessage(existingMessage);
+
+            String successMessage = "Message marked as important";
+            return ResponseEntity.ok().body("{\"message\":\"" + successMessage + "\"}");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     private MessageResponseDTO convertMessageToResponseDTO(Message message) {
         return new MessageResponseDTO(
@@ -80,7 +94,8 @@ public class MessageController {
                 message.getEmail_env(),
                 message.getTelephone_env(),
                 message.getObjet(),
-                message.getContenu()
+                message.getContenu(),
+                message.isImportant()
         );
     }
 

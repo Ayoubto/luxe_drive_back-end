@@ -29,6 +29,7 @@ class JwtResponse {
     private String prenom;
     private String nom;
     private String image;
+    private String successMessage;
 
     public JwtResponse(String jwt, String id, String email, String role) {
         this.jwt = jwt;
@@ -36,7 +37,13 @@ class JwtResponse {
         this.email = email;
         this.role = role;
     }
+    public String getSuccessMessage() {
+        return successMessage;
+    }
 
+    public void setSuccessMessage(String successMessage) {
+        this.successMessage = successMessage;
+    }
     public String getImage() {
         return image;
     }
@@ -98,38 +105,73 @@ public class usercontroller {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("/addUser")
-    public String addUser(@RequestBody User user) {
-        // Enregistrez l'utilisateur dans la base de données MongoDB
-        userService.save(user);
 
-        // Envoyez un e-mail de bienvenue
-        emailService.sendWelcomeEmail(user.getPrenom(), user.getEmail());
+//    @PostMapping("/addUser")
+//    public String addUser(@RequestBody User user) {
+//        // Enregistrez l'utilisateur dans la base de données MongoDB
+//        user.setValidated(false);  // Nouvelle ligne pour définir l'état de validation
+//        userService.save(user);
+//
+//        // Générez le lien d'activation avec l'ID de l'utilisateur
+//        String activationLink = "http://localhost:8093/api/auth/validateAccount/" + user.getId();
+//
+//        // Envoyez un e-mail de bienvenue avec le lien de validation
+//        emailService.sendWelcomeEmail(user.getPrenom(), user.getEmail(), activationLink);
+//
+//        return "Utilisateur ajouté avec succès! Veuillez vérifier votre e-mail pour activer votre compte.";
+//    }
 
-        return "Utilisateur ajouté avec succès!";
-    }
+
 
 
     @PostMapping("/signup")
     public ResponseEntity<JwtResponse> signUp(@RequestBody User user) {
         if (userService.findByEmail(user.getEmail()) != null) {
-            return ResponseEntity.badRequest().body(new JwtResponse("Email is already taken",null,"",""));
+            return ResponseEntity.badRequest().body(new JwtResponse("Email is already taken", null, "", ""));
         }
 
-
         String role = (user.getRole() == null || user.getRole().isEmpty()) ? "user" : user.getRole();
-
-
         user.setRole(role);
 
+        // Enregistrez l'utilisateur dans la base de données MongoDB
+        user.setValidated(false);  // Nouvelle ligne pour définir l'état de validation
         userService.save(user);
 
+        // Générez le lien d'activation avec l'ID de l'utilisateur
+        String activationLink = "http://localhost:8093/api/auth/validateAccount/" + user.getId();
+
+        // Envoyez un e-mail de bienvenue avec le lien de validation
+        emailService.sendWelcomeEmail(user.getPrenom(), user.getEmail(), activationLink);
+
+        // Générez le token JWT après l'enregistrement et l'envoi de l'e-mail
         final UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
         final String jwt = jwtUtil.generateToken(userDetails);
-        JwtResponse response = new JwtResponse(jwt,null,"", role); // Utilisation du rôle défini
+
+        JwtResponse response = new JwtResponse(jwt, null, "", role); // Utilisation du rôle défini
+
+        // Ajoutez le message dans le corps de la réponse JSON
+        String successMessage = "Utilisateur ajouté avec succès! Veuillez vérifier votre e-mail pour activer votre compte.";
+        response.setSuccessMessage(successMessage);
+
         return ResponseEntity.ok(response);
     }
 
+
+
+    @GetMapping("/validateAccount/{userId}")
+    public ResponseEntity<String> validateAccount(@PathVariable String userId) {
+        // Récupérez l'utilisateur par ID
+        Optional<User> userOptional = userService.getUserById(new BigInteger(userId));
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setValidated(true);
+            userService.updateUser(user);
+            return ResponseEntity.ok("Votre compte a été validé avec succès. Vous pouvez maintenant accéder à votre compte.");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
     @PostMapping("/signin")
     public ResponseEntity<JwtResponse> signIn(@RequestBody User user) {
         try {
@@ -138,6 +180,12 @@ public class usercontroller {
             );
 
             UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
+
+            if (!((User) userDetails).isValidated()) {
+                // Le compte n'est pas encore validé
+                return ResponseEntity.badRequest().body(new JwtResponse("Compte non validé", null, "", ""));
+            }
+
             String jwt = jwtUtil.generateToken(userDetails);
             String role = getUserRole(userDetails);
             String username = userDetails.getUsername();
@@ -145,19 +193,48 @@ public class usercontroller {
 
             String prenom = ((CustomUserDetails) userDetails).getPrenom();
             String nom = ((CustomUserDetails) userDetails).getNom();
-            String image = ((CustomUserDetails) userDetails).getImage(); // Récupération de l'image
-
+            String image = ((CustomUserDetails) userDetails).getImage();
 
             JwtResponse response = new JwtResponse(jwt, userId, username, role);
             response.setPrenom(prenom);
             response.setNom(nom);
-            response.setImage(image); // Utilisation de setImage() pour assigner l'image
+            response.setImage(image);
             return ResponseEntity.ok(response);
         } catch (BadCredentialsException e) {
             String errorMessage = "Invalid email or password";
-            return ResponseEntity.badRequest().body(new JwtResponse("Invalid email or password", null, "", ""));
+            return ResponseEntity.badRequest().body(new JwtResponse(errorMessage, null, "", ""));
         }
     }
+
+
+//    @PostMapping("/signin")
+//    public ResponseEntity<JwtResponse> signIn(@RequestBody User user) {
+//        try {
+//            authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+//            );
+//
+//            UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
+//            String jwt = jwtUtil.generateToken(userDetails);
+//            String role = getUserRole(userDetails);
+//            String username = userDetails.getUsername();
+//            String userId = ((CustomUserDetails) userDetails).getId();
+//
+//            String prenom = ((CustomUserDetails) userDetails).getPrenom();
+//            String nom = ((CustomUserDetails) userDetails).getNom();
+//            String image = ((CustomUserDetails) userDetails).getImage(); // Récupération de l'image
+//
+//
+//            JwtResponse response = new JwtResponse(jwt, userId, username, role);
+//            response.setPrenom(prenom);
+//            response.setNom(nom);
+//            response.setImage(image); // Utilisation de setImage() pour assigner l'image
+//            return ResponseEntity.ok(response);
+//        } catch (BadCredentialsException e) {
+//            String errorMessage = "Invalid email or password";
+//            return ResponseEntity.badRequest().body(new JwtResponse("Invalid email or password", null, "", ""));
+//        }
+//    }
 
 
     private String getUserRole(UserDetails userDetails) {

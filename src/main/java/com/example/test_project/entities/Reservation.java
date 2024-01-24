@@ -31,15 +31,15 @@ public class Reservation {
 
 
 
-    private BigInteger agence_depart_id;
+    private String agence_depart_id;
 
-    private BigInteger agence_retour_id;
-
-
-    private BigInteger voiture_id;
+    private String agence_retour_id;
 
 
-    private BigInteger user_id;
+    private String voiture_id;
+
+
+    private String user_id;
 
     private String status;
     private String reservation;
@@ -50,7 +50,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(LocalDateTime date_debut, LocalDateTime date_fin, BigInteger agenceDepart, BigInteger agenceRetour, BigInteger voiture, BigInteger user, String status, String reservation,double Prix_Total) {
+    public Reservation(LocalDateTime date_debut, LocalDateTime date_fin, String agenceDepart, String agenceRetour, String voiture, String user, String status, String reservation,double Prix_Total) {
         this.dateDebut = date_debut;
         this.dateFin = date_fin;
         this.agence_depart_id = agenceDepart;
@@ -91,35 +91,35 @@ public class Reservation {
         this.dateFin = date_fin;
     }
 
-    public BigInteger getAgence_depart_id() {
+    public String getAgence_depart_id() {
         return agence_depart_id;
     }
 
-    public void setAgence_depart_id(BigInteger agence_depart_id) {
+    public void setAgence_depart_id(String agence_depart_id) {
         this.agence_depart_id = agence_depart_id;
     }
 
-    public BigInteger getAgence_retour_id() {
+    public String getAgence_retour_id() {
         return agence_retour_id;
     }
 
-    public void setAgence_retour_id(BigInteger agence_retour_id) {
+    public void setAgence_retour_id(String agence_retour_id) {
         this.agence_retour_id = agence_retour_id;
     }
 
-    public BigInteger getVoiture_id() {
+    public String getVoiture_id() {
         return voiture_id;
     }
 
-    public void setVoiture_id(BigInteger voiture_id) {
+    public void setVoiture_id(String voiture_id) {
         this.voiture_id = voiture_id;
     }
 
-    public BigInteger getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(BigInteger user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 

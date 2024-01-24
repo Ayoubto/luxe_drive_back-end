@@ -43,14 +43,14 @@ public class Reservation {
 
     private String status;
     private String reservation;
-    private double Prix_Total;
+    private int Prix_Total;
 
 
 
     public Reservation() {
     }
 
-    public Reservation(LocalDateTime date_debut, LocalDateTime date_fin, String agenceDepart, String agenceRetour, String voiture, String user, String status, String reservation,double Prix_Total) {
+    public Reservation(LocalDateTime date_debut, LocalDateTime date_fin, String agenceDepart, String agenceRetour, String voiture, String user, String status, String reservation,int Prix_Total) {
         this.dateDebut = date_debut;
         this.dateFin = date_fin;
         this.agence_depart_id = agenceDepart;
@@ -63,7 +63,7 @@ public class Reservation {
     }
 
 
-    public double getPrix_Total() {
+    public int getPrix_Total() {
         return Prix_Total;
     }
 

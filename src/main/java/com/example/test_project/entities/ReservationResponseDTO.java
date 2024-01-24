@@ -14,11 +14,11 @@ public class ReservationResponseDTO {
     private String user_id;
     private String status;
     private String reservation;
-    private double Prix_Total;
+    private int Prix_Total;
 
 
     public ReservationResponseDTO(String id, LocalDateTime dateDebut, LocalDateTime dateFin, String agence_depart_id, String agence_retour_id,
-                                  String voiture_id, String user_id, String status, String reservation,  double Prix_Total) {
+                                  String voiture_id, String user_id, String status, String reservation,  int Prix_Total) {
         this.id = id;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -31,7 +31,7 @@ public class ReservationResponseDTO {
         this.Prix_Total=Prix_Total;
     }
 
-    public double getPrix_Total() {
+    public int getPrix_Total() {
         return Prix_Total;
     }
 
@@ -70,6 +70,7 @@ public class ReservationResponseDTO {
     public String getReservation() {
         return reservation;
     }
+
 
 
 }

@@ -161,7 +161,7 @@ public class usercontroller {
 
     @GetMapping("/validateAccount/{userId}")
     public ResponseEntity<String> validateAccount(@PathVariable String userId) {
-        // Récupérez l'utilisateur par ID
+
         Optional<User> userOptional = userService.getUserById(new BigInteger(userId));
 
         if (userOptional.isPresent()) {

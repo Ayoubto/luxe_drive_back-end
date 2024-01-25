@@ -34,29 +34,71 @@ public class ReservationController {
 
 
 
-    @PostMapping("/addreservation")
-    public ResponseEntity<String> addReservation(@RequestBody Reservation reservation) {
-        reservationService.saveReservation(reservation);
+//    @PostMapping("/addreservation")
+//    public ResponseEntity<String> addReservation(@RequestBody Reservation reservation) {
+//        reservationService.saveReservation(reservation);
+//
+//        // Récupérez l'ID de la réservation après l'ajout
+//        BigInteger reservationId = reservation.getId();
+//
+//        // Retrieve user email by user ID
+//        String userId = reservation.getUser_id(); // Assuming userId is a string
+//        String userEmail = reservationService.getUserEmailById(userId);
+//
+//        if (userEmail != null) {
+//
+//
+//            // Send confirmation email
+//            emailService.sendConfirmationEmailResercation(reservation,userEmail);
+//
+//            return ResponseEntity.ok().body("{\"message\":\"" + reservationId + "\"}");
+//        } else {
+//            // Handle the case where user email is not found
+//            return ResponseEntity.badRequest().body("{\"error\":\"User email not found for user ID: " + userId + "\"}");
+//        }
+//    }
+@PostMapping("/addreservation")
+public ResponseEntity<String> addReservation(@RequestBody Reservation reservation) {
+    reservationService.saveReservation(reservation);
 
-        // Récupérez l'ID de la réservation après l'ajout
-        BigInteger reservationId = reservation.getId();
+    // Récupérer l'ID de la réservation après l'ajout
+    BigInteger reservationId = reservation.getId();
 
-        // Retrieve user email by user ID
-        String userId = reservation.getUser_id(); // Assuming userId is a string
+    // Récupérer le prénom de l'utilisateur par son ID
+    String userId = reservation.getUser_id();
+    String userPrenom = reservationService.getUserPrenomById(new BigInteger(userId));
+
+    // Récupérer le nom de l'agence par son ID
+    BigInteger agenceId = new BigInteger(reservation.getAgence_depart_id());
+    String agenceNom = reservationService.getAgenceNomById(agenceId);
+    BigInteger agenceIdrouteur = new BigInteger(reservation.getAgence_retour_id());
+    String agenceNomouteur = reservationService.getAgenceNomouteurById(agenceId);
+
+
+    // Récupérer le modèle de la voiture par son ID
+    BigInteger voitureId = new BigInteger(reservation.getVoiture_id());
+    String voitureModele = reservationService.getVoitureModeleById(voitureId);
+
+    // Vérifier si toutes les informations nécessaires ont été récupérées avec succès
+    if (userPrenom != null && agenceNom != null && voitureModele != null) {
+        // Récupérer l'e-mail de l'utilisateur
         String userEmail = reservationService.getUserEmailById(userId);
 
         if (userEmail != null) {
-
-
-            // Send confirmation email
-            emailService.sendConfirmationEmailResercation(reservation,userEmail);
+            // Envoyer l'e-mail de confirmation avec les détails supplémentaires
+            emailService.sendConfirmationEmailReservation(reservation, userEmail, userPrenom, voitureModele, agenceNom,agenceNomouteur);
 
             return ResponseEntity.ok().body("{\"message\":\"" + reservationId + "\"}");
         } else {
-            // Handle the case where user email is not found
+            // Gérer le cas où l'e-mail de l'utilisateur n'est pas trouvé
             return ResponseEntity.badRequest().body("{\"error\":\"User email not found for user ID: " + userId + "\"}");
         }
+    } else {
+        // Gérer le cas où une des informations nécessaires n'est pas trouvée
+        return ResponseEntity.badRequest().body("{\"error\":\"Unable to retrieve all necessary details for reservation ID: " + reservationId + "\"}");
     }
+}
+
 
 
 

@@ -18,5 +18,9 @@ public interface reservationservice {
 
     void deleteReservation(BigInteger id);
     void updateReservation(BigInteger id);
+    String getUserPrenomById(BigInteger userId);
+    String getAgenceNomById(BigInteger agenceId);
+    String getVoitureModeleById(BigInteger voitureId);
+    String getAgenceNomouteurById(BigInteger voitureId);
 
 }

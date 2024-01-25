@@ -76,7 +76,7 @@ public ResponseEntity<String> addReservation(@RequestBody Reservation reservatio
 
 
     // Récupérer le modèle de la voiture par son ID
-    BigInteger voitureId = new BigInteger(reservation.getVoiture_id());
+    BigInteger voitureId = new BigInteger(String.valueOf(reservation.getVoiture_id()));
     String voitureModele = reservationService.getVoitureModeleById(voitureId);
 
     // Vérifier si toutes les informations nécessaires ont été récupérées avec succès
@@ -195,7 +195,7 @@ public ResponseEntity<String> addReservation(@RequestBody Reservation reservatio
                 reservation.getDateFin(),
                 reservation.getAgence_depart_id(),
                 reservation.getAgence_retour_id(),
-                reservation.getVoiture_id(),
+                reservation.getVoiture_id().toString(),
                 reservation.getUser_id(),
                 reservation.getStatus(),
                 reservation.getReservation(),

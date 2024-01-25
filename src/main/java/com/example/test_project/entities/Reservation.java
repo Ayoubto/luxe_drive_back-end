@@ -36,7 +36,7 @@ public class Reservation {
     private String agence_retour_id;
 
 
-    private String voiture_id;
+    private BigInteger voiture_id;
 
 
     private String user_id;
@@ -51,7 +51,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(LocalDateTime date_debut, LocalDateTime date_fin, String agenceDepart, String agenceRetour, String voiture, String user, String status, String reservation,double Prix_Total) {
+    public Reservation(LocalDateTime date_debut, LocalDateTime date_fin, String agenceDepart, String agenceRetour, BigInteger voiture, String user, String status, String reservation,double Prix_Total) {
         this.dateDebut = date_debut;
         this.dateFin = date_fin;
         this.agence_depart_id = agenceDepart;
@@ -111,11 +111,11 @@ public class Reservation {
         this.agence_retour_id = agence_retour_id;
     }
 
-    public String getVoiture_id() {
+    public BigInteger getVoiture_id() {
         return voiture_id;
     }
 
-    public void setVoiture_id(String voiture_id) {
+    public void setVoiture_id(BigInteger voiture_id) {
         this.voiture_id = voiture_id;
     }
 
